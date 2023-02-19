@@ -136,8 +136,20 @@ Colors = [
     '#005e43', #green       3
     '#00ffb4', #green light 4
     '#727272', #grey        5
+
+    #bar
+    '#DB1F48', #red     6
+    '#603F8B', #purple  7
+    '#004369', #blue    8
+    '#01949A', #teal    9
+    '#E5DDC8', #cream   10
 ]
 
+spacer1 = widget.TextBox(text="", fontsize=51, foreground=Colors[0], background=Colors[6], padding=0)
+spacer2 = widget.TextBox(text="", fontsize=51, foreground=Colors[6], background=Colors[7], padding=0)
+spacer3 = widget.TextBox(text="", fontsize=51, foreground=Colors[7], background=Colors[8], padding=0)
+spacer4 = widget.TextBox(text="", fontsize=51, foreground=Colors[8], background=Colors[9], padding=0)
+spacer5 = widget.TextBox(text="", fontsize=51, foreground=Colors[9], padding=0)
 
 layouts = [
     layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=3, margin=7,),
@@ -182,15 +194,20 @@ screens = [
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
                 # widget.StatusNotifier(),
                 #widget.Systray(),
-                widget.Net(interface="wlp4s0", format=" {up}   {down}",),
-                widget.Backlight(format=" {percent:2.0%}", brightness_file="/sys/devices/pci0000:00/0000:00:08.1/0000:05:00.0/backlight/amdgpu_bl1/actual_brightness", max_brightness_file="/sys/devices/pci0000:00/0000:00:08.1/0000:05:00.0/backlight/amdgpu_bl1/max_brightness", change_command="light -S {}"),
-                widget.Volume(fmt=' {}'),
+                spacer5,
+                widget.Net(interface="wlp4s0", format=" {up}  {down}", background=Colors[9]),
+                spacer4,
+                widget.Backlight(format=" {percent:2.0%}", brightness_file="/sys/devices/pci0000:00/0000:00:08.1/0000:05:00.0/backlight/amdgpu_bl1/actual_brightness", max_brightness_file="/sys/devices/pci0000:00/0000:00:08.1/0000:05:00.0/backlight/amdgpu_bl1/max_brightness", change_command="light -S {}", background=Colors[8]),
+                spacer3,
+                widget.Volume(fmt=' {}', background=Colors[7]),
+                spacer2,
                 #widget.KhalCalendar(),
-                widget.Clock(format="%Y.%m.%d %a    %H:%M"),
+                widget.Clock(format="  %Y.%m.%d %a    %H:%M", background=Colors[6]),
+                spacer1,
                 widget.Battery(low_foreground=Colors[1], low_background="#f40e16", format=" {percent:2.0%}"),
                 #widget.QuickExit(),
             ],
-            31,
+            27,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
